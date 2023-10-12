@@ -6,7 +6,7 @@ use crate::polling_monitor::{
 use anyhow::{self, Error};
 use bytes::Bytes;
 use graph::{
-    blockchain::Blockchain,
+    blockchain::{BlockTime, Blockchain},
     components::{
         store::{DeploymentId, SubgraphFork},
         subgraph::{MappingError, SharedProofOfIndexing},
@@ -119,6 +119,7 @@ impl<C: Blockchain, T: RuntimeHostBuilder<C>> IndexingContext<C, T> {
         &self,
         logger: &Logger,
         block_ptr: BlockPtr,
+        block_time: BlockTime,
         block_data: Box<[u8]>,
         handler: String,
         mut state: BlockState<C>,
@@ -148,6 +149,7 @@ impl<C: Blockchain, T: RuntimeHostBuilder<C>> IndexingContext<C, T> {
             .process_block(
                 logger,
                 block_ptr,
+                block_time,
                 block_data,
                 handler,
                 state,
