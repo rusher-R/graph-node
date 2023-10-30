@@ -1180,6 +1180,7 @@ where
             let proof_of_indexing = Arc::try_unwrap(proof_of_indexing).unwrap().into_inner();
             update_proof_of_indexing(
                 proof_of_indexing,
+                block_time,
                 &self.metrics.host.stopwatch,
                 &mut block_state.entity_cache,
             )
@@ -1257,6 +1258,7 @@ where
         store
             .transact_block_operations(
                 block_ptr,
+                block_time,
                 cursor,
                 mods,
                 &self.metrics.host.stopwatch,

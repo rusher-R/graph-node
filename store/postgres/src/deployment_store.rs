@@ -1100,6 +1100,7 @@ impl DeploymentStore {
         logger: &Logger,
         site: Arc<Site>,
         batch: &Batch,
+        last_rollup: Option<BlockTime>,
         stopwatch: &StopwatchMetrics,
         manifest_idx_and_name: &[(u32, String)],
     ) -> Result<StoreEvent, StoreError> {
@@ -1127,6 +1128,8 @@ impl DeploymentStore {
                     stopwatch,
                 )?;
                 section.end();
+
+                layout.rollup(&conn, last_rollup, &batch.block_times)?;
 
                 dynds::insert(&conn, &site, &batch.data_sources, manifest_idx_and_name)?;
 
