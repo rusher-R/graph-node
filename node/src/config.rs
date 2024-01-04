@@ -1152,7 +1152,9 @@ fn default_node_id() -> NodeId {
 }
 
 fn default_polling_interval() -> Duration {
-    ENV_VARS.ingestor_polling_interval
+    let s = ENV_VARS.ingestor_polling_interval;
+    println!(" - 1 - Get current ingestor_polling_interval: {:?}", s);
+    return s;
 }
 
 fn deserialize_duration_millis<'de, D>(data: D) -> Result<Duration, D::Error>
